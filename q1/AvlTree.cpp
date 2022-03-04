@@ -214,7 +214,6 @@ void AvlTree<Comparable>::insert(const Comparable &x, AvlNode *&t) {
     if (t->element < x)
         insert(x, t->right);
 
-    cout << "val: " << x << endl;
     balance(t);
 }
 
@@ -325,6 +324,10 @@ void AvlTree<Comparable>::balance(AvlNode *&t) {
         return;
     }
 
+    /*
+     * Old balance() function
+     */
+
     if (height(t->left) - height(t->right) > ALLOWED_IMBALANCE) {
         if (height(t->left->left) >= height(t->left->right)) {
             rotateWithLeftChild(t);
@@ -395,7 +398,7 @@ typename AvlTree<Comparable>::AvlNode *AvlTree<Comparable>::doubleRotateWithRigh
     node->height = getMax(height(node->left), height(node->right));
     temp->height = getMax(height(temp->right), node->height);
 
-    return temp;
+    return node;
 }
 
 // Assume t is balanced or within one of being balanced
@@ -411,15 +414,13 @@ void AvlTree<Comparable>::balanceImproved(AvlNode *&t) {
         if (height(t->left->left) >= height(t->left->right)) {
             rotateWithLeftChild(t);
         } else {
-            doubleWithLeftChild(t);
-            //t = doubleRotateWithLeftChild(t); // issue here
+            t = doubleRotateWithLeftChild(t);
         }
     } else if (height(t->right) - height(t->left) > ALLOWED_IMBALANCE) {
         if (height(t->right->right) >= height(t->right->left)) {
             rotateWithRightChild(t);
         } else {
-            doubleWithRightChild(t);
-            //t = doubleRotateWithRightChild(t); // issue here
+            t = doubleRotateWithRightChild(t);
         }
     }
 
@@ -505,7 +506,7 @@ void AvlTree<Comparable>::removeImproved(const Comparable &x, AvlNode *&t) {
 // Methods for assignment 03: Q3
 // Create an Avl tree using the generated random number (integer) between lower and upper inclusive
 // The number of random number generated is upper - lower
-// For example if lower = 2, upper = 12, then the generated random numbers are in the range [2, 12],
+// For example if lower = 2, upper = 12, then the gernerated random numbers are in the range [2, 12],
 // and 12 - 2 + 1 = 11 random numbers will be generated, which are used to build the AVL tree.
 // Note: in the example, the built AVL must have 11 nodes!
 // You can create any additional methods if necessary. The created methods should put headers in AvlTree.h,
