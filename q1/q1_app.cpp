@@ -34,7 +34,8 @@ int main() {
     cout << "Assignment 04, Question 02 Nick Voss: " << endl;
     cout << "Test1: " << endl;
 
-    for (int num : {50, 30, 40, 35, 32, 40, 45, 48, 46, 30, 47}) {
+    // missing 40, 45
+    for (int num: {50, 30, 40, 35, 32, 40, 45, 48, 46, 30, 47}) {
         t.insertImproved(num);
     }
 
@@ -42,7 +43,7 @@ int main() {
     t.printTree();
     cout << endl;
 
-    t.removeImproved(48);
+    //t.removeImproved(48);
     cout << "The updated AVL tree is (preorder traversal):" << endl;
     t.printTree();
     cout << endl;
