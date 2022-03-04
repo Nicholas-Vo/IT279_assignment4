@@ -514,8 +514,21 @@ void AvlTree<Comparable>::removeImproved(const Comparable &x, AvlNode *&t) {
 //
 // Hint: you can use srand(time(0)) and rand % num to create random number
 template<typename Comparable>
-void AvlTree<Comparable>::makeRandomTree(const Comparable lower, const Comparable upper) {
-    // Add your code here
+int AvlTree<Comparable>::getRandomNumber(const Comparable lower, const Comparable upper) {
+    return lower + (rand() % (upper - lower + 1));
 }
 
+template<typename Comparable>
+void AvlTree<Comparable>::makeRandomTree(const Comparable lower, const Comparable upper) {
+    int stopAt = (upper - lower) + 1;
+
+    for (int i = 0; i < stopAt; i++) {
+        int rand = getRandomNumber(lower, upper);
+
+        if (contains(rand)) {
+            i--;
+        } else {
+            insert(rand);
+        }
+    }
 // You may add more methods here for question 3.
